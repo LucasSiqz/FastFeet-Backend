@@ -7,7 +7,7 @@ class DeliverymanController {
       attributes:['id', 'name', 'email', 'avatar_id'],
       include: [
         {
-          mode: File,
+          model: File,
           as: 'avatar',
           attributes:['name', 'path', 'url'],
         }
