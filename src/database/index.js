@@ -6,8 +6,9 @@ import Recipient from '../app/models/Recipient';
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Deliveryman from '../app/models/Deliveryman';
+import Orders from '../app/models/Orders';
 
-const models = [User, Recipient, File, Deliveryman];
+const models = [User, Recipient, File, Deliveryman, Orders];
 
 class Database {
   constructor() {
@@ -20,7 +21,6 @@ class Database {
       .map(model => model.init(this.connection))
       .map(model => model.associate && model.associate(this.connection.models));
   }
-
 }
 
 export default new Database();
