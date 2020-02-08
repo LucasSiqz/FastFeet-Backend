@@ -18,7 +18,6 @@ import valdiadeDeliverymanStore from './app/validators/DeliverymanStore';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-
 routes.post('/users', validadeUserStore, UserController.store);
 routes.post('/session', validadeSessionStore, SessionControler.store);
 
@@ -26,8 +25,13 @@ routes.use(authMiddleware);
 
 routes.post('/recipients', validadeRecipientStore, RecipientController.store);
 
-routes.post('/deliverymans', valdiadeDeliverymanStore,DeliverymanController.store);
+routes.post(
+  '/deliverymans',
+  valdiadeDeliverymanStore,
+  DeliverymanController.store
+);
 routes.get('/deliverymans', DeliverymanController.index);
+routes.put('/deliverymans/:id', DeliverymanController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
