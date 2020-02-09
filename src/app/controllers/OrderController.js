@@ -112,6 +112,20 @@ class OrderController {
       end_date,
     });
   }
+
+  async delete(req, res) {
+    const order = await Order.findByPk(req.params.id);
+
+    if (!order) {
+      return res.status(400).json({ error: 'Order does not exists' });
+    }
+
+    await Order.destroy();
+
+    return res.json({
+      success: `Order with id ${req.params.id} was deleted`,
+    });
+  }
 }
 
 export default new OrderController();
