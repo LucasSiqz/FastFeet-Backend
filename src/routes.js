@@ -14,6 +14,7 @@ import validadeUserStore from './app/validators/UserStore';
 import validadeSessionStore from './app/validators/SessionStore';
 import validadeRecipientStore from './app/validators/RecipientStore';
 import valdiadeDeliverymanStore from './app/validators/DeliverymanStore';
+import OrderController from './app/controllers/OrderController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -33,6 +34,8 @@ routes.post(
 routes.get('/deliverymans', DeliverymanController.index);
 routes.put('/deliverymans/:id', DeliverymanController.update);
 routes.delete('/deliverymans/:id', DeliverymanController.delete);
+
+routes.post('/orders', OrderController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
