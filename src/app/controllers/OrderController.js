@@ -3,6 +3,8 @@ import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 import File from '../models/File';
 
+import Mail from '../../lib/Mail';
+
 class OrderController {
   async index(req, res) {
     const orders = await Order.findAll({
@@ -50,11 +52,19 @@ class OrderController {
           {
             model: Deliveryman,
             as: 'deliveryman',
-            attributes: ['id'],
+            attributes: ['id', 'email'],
           },
         ],
       }
     );
+
+    const deliveryman = await Deliveryman.findByPk(deliveryman_id);
+
+    await Mail.sendMail({
+      to: `${deliveryman.name} <${deliveryman.email}>`,
+      subject: 'Nova encomenda disponível!',
+      text: 'Tem uma nova encomenda disponivel para entrega',
+    });
 
     return res.json({
       id,
