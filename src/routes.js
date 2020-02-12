@@ -25,7 +25,7 @@ routes.post('/session', validadeSessionStore, SessionControler.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-routes.get('/deliveryman/:id', DeliveryController.index);
+routes.get('/deliveryman/:id/deliveries', DeliveryController.index);
 
 routes.use(authMiddleware);
 
