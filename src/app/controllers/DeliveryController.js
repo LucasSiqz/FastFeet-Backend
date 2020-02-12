@@ -28,9 +28,15 @@ class DeliveryController {
         end_date: {
           [Op.ne]: null,
         },
-        canceled_at: null,
         deliveryman_id: req.params.id,
       },
+      include: [
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['url', 'path', 'name'],
+        },
+      ],
     });
 
     return res.json(deliveries);
