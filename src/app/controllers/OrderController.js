@@ -41,21 +41,7 @@ class OrderController {
 
   async store(req, res) {
     const { id, recipient_id, deliveryman_id, product } = await Order.create(
-      req.body,
-      {
-        include: [
-          {
-            model: Recipient,
-            as: 'recipient',
-            attributes: ['id'],
-          },
-          {
-            model: Deliveryman,
-            as: 'deliveryman',
-            attributes: ['id', 'email'],
-          },
-        ],
-      }
+      req.body
     );
 
     const deliveryman = await Deliveryman.findByPk(deliveryman_id);

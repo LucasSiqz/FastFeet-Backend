@@ -146,8 +146,6 @@ class DeliveryController {
 
     return res.json(data);
   }
-
-  async delete(req, res) {}
 }
 
 export default new DeliveryController();
