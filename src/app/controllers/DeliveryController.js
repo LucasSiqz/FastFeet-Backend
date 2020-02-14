@@ -30,7 +30,7 @@ class DeliveryController {
         },
       });
 
-      return res.json(deliveries);
+      return res.status(200).json(deliveries);
     }
 
     const deliveries = await Order.findAll({
@@ -49,7 +49,7 @@ class DeliveryController {
       ],
     });
 
-    return res.json(deliveries);
+    return res.status(200).json(deliveries);
   }
 
   async update(req, res) {
@@ -144,7 +144,7 @@ class DeliveryController {
       ],
     });
 
-    return res.json(data);
+    return res.status(200).json(data);
   }
 }
 

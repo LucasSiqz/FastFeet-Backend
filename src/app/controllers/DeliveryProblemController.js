@@ -1,10 +1,11 @@
-import DeliveryProblems from '../models/DeliveryProblems';
+import DeliveryProblem from '../models/DeliveryProblems';
 import Order from '../models/Orders';
+import Deliveryman from '../models/Deliveryman';
 import Mail from '../../lib/Mail';
 
 class DeliveryProblemController {
   async index(req, res) {
-    const deliveriesWithProblems = await DeliveryProblems.findAll({
+    const deliveriesWithProblems = await DeliveryProblem.findAll({
       include: [
         {
           model: Order,
@@ -21,48 +22,84 @@ class DeliveryProblemController {
     });
 
     if (!deliveriesWithProblems) {
-      res.json({ message: 'there are no orders with problems' });
+      res.status(400).json({ message: 'there are no orders with problems' });
     }
 
-    return res.json(deliveriesWithProblems);
+    return res.status(200).json(deliveriesWithProblems);
   }
 
   async store(req, res) {
     const orderExists = await Order.findByPk(req.params.order_id);
 
     if (!orderExists) {
-      return res.json({ error: 'Order does not exists' });
+      return res.status(400).json({ error: 'Order does not exists' });
     }
 
-    const deliveryProblem = await DeliveryProblems.create({
+    const deliveryProblem = await DeliveryProblem.create({
       delivery_id: req.params.order_id,
       description: req.body.description,
     });
 
-    return res.json(deliveryProblem);
+    return res.status(200).json(deliveryProblem);
   }
 
   async show(req, res) {
     const orderExists = await Order.findByPk(req.params.order_id);
 
     if (!orderExists) {
-      return res.json({ error: 'Order does not exists' });
+      return res.status(400).json({ error: 'Order does not exists' });
     }
 
-    const orderProblems = await DeliveryProblems.findAll({
+    const orderProblems = await DeliveryProblem.findAll({
       where: {
         delivery_id: req.params.order_id,
       },
     });
 
     if (Object.keys(orderProblems).length === 0) {
-      return res.json({ error: 'This order has no problems' });
+      return res.status(400).json({ error: 'This order has no problems' });
     }
 
-    return res.json(orderProblems);
+    return res.status(200).json(orderProblems);
   }
 
-  async delete(req, res) {}
+  async delete(req, res) {
+    const deliveryProblemExists = await DeliveryProblem.findByPk(
+      req.params.problem_id
+    );
+
+    if (!deliveryProblemExists) {
+      return res.status(400).json({ error: 'Problem does not exists' });
+    }
+
+    const order = await Order.findByPk(deliveryProblemExists.delivery_id, {
+      include: [
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
+
+    if (order.end_date !== null && order.signature_id !== null) {
+      return res
+        .status(400)
+        .json({ error: 'This order has already been delivered' });
+    }
+
+    if (order.canceled_at !== null) {
+      return res
+        .status(400)
+        .json({ error: 'This order has already been canceled' });
+    }
+
+    await order.update({
+      canceled_at: new Date(),
+    });
+
+    return res.status(200).json({ message: 'Delivery was canceled!' });
+  }
 }
 
 export default new DeliveryProblemController();

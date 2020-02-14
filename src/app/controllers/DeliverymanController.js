@@ -13,7 +13,7 @@ class DeliverymanController {
         },
       ],
     });
-    return res.json(deliverymans);
+    return res.status(200).json(deliverymans);
   }
 
   async store(req, res) {
@@ -35,7 +35,7 @@ class DeliverymanController {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       id,
       name,
       email,
@@ -72,7 +72,7 @@ class DeliverymanController {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       id,
       name,
       email,
@@ -89,7 +89,7 @@ class DeliverymanController {
 
     await deliveryman.destroy();
 
-    return res.json({
+    return res.status(200).json({
       success: `Deliveryman with id ${req.params.id} was deleted`,
     });
   }

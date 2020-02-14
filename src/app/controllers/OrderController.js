@@ -36,7 +36,7 @@ class OrderController {
         },
       ],
     });
-    return res.json(orders);
+    return res.status(200).json(orders);
   }
 
   async store(req, res) {
@@ -64,7 +64,7 @@ class OrderController {
       },
     });
 
-    return res.json({
+    return res.status(200).json({
       id,
       recipient_id,
       deliveryman_id,
@@ -109,7 +109,7 @@ class OrderController {
       ],
     });
 
-    return res.json({
+    return res.status(200).json({
       id,
       recipient_id,
       deliveryman_id,
@@ -130,7 +130,7 @@ class OrderController {
 
     await Order.destroy();
 
-    return res.json({
+    return res.status(200).json({
       success: `Order with id ${req.params.id} was deleted`,
     });
   }
