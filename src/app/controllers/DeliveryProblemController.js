@@ -98,6 +98,17 @@ class DeliveryProblemController {
       canceled_at: new Date(),
     });
 
+    await Mail.sendMail({
+      to: `${order.deliveryman.name} <${order.deliveryman.email}>`,
+      subject: 'Encomenda Cancelada!',
+      template: 'cancelOrder',
+      context: {
+        deliveryman: order.deliveryman.name,
+        product: order.product,
+        description: deliveryProblemExists.description,
+      },
+    });
+
     return res.status(200).json({ message: 'Delivery was canceled!' });
   }
 }
