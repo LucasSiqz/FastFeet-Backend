@@ -32,7 +32,8 @@ routes.put(
   DeliveryController.update
 );
 
-routes.post('/delivery/:delivery_id/problems', DeliveryProblemController.store);
+routes.post('/delivery/:order_id/problems', DeliveryProblemController.store);
+routes.get('/delivery/:order_id/problems', DeliveryProblemController.show);
 routes.get('/deliveries/with-problems', DeliveryProblemController.index);
 
 routes.use(authMiddleware);

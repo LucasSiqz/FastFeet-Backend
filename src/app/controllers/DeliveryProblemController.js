@@ -28,21 +28,39 @@ class DeliveryProblemController {
   }
 
   async store(req, res) {
-    const orderExists = await Order.findByPk(req.params.delivery_id);
+    const orderExists = await Order.findByPk(req.params.order_id);
 
     if (!orderExists) {
       return res.json({ error: 'Order does not exists' });
     }
 
     const deliveryProblem = await DeliveryProblems.create({
-      delivery_id: req.params.delivery_id,
+      delivery_id: req.params.order_id,
       description: req.body.description,
     });
 
     return res.json(deliveryProblem);
   }
 
-  async show(req, res) {}
+  async show(req, res) {
+    const orderExists = await Order.findByPk(req.params.order_id);
+
+    if (!orderExists) {
+      return res.json({ error: 'Order does not exists' });
+    }
+
+    const orderProblems = await DeliveryProblems.findAll({
+      where: {
+        delivery_id: req.params.order_id,
+      },
+    });
+
+    if (Object.keys(orderProblems).length === 0) {
+      return res.json({ error: 'This order has no problems' });
+    }
+
+    return res.json(orderProblems);
+  }
 
   async delete(req, res) {}
 }
