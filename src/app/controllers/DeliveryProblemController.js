@@ -3,7 +3,29 @@ import Order from '../models/Orders';
 import Mail from '../../lib/Mail';
 
 class DeliveryProblemController {
-  async index(req, res) {}
+  async index(req, res) {
+    const deliveriesWithProblems = await DeliveryProblems.findAll({
+      include: [
+        {
+          model: Order,
+          as: 'order',
+          attributes: [
+            'id',
+            'product',
+            'start_date',
+            'recipient_id',
+            'deliveryman_id',
+          ],
+        },
+      ],
+    });
+
+    if (!deliveriesWithProblems) {
+      res.json({ message: 'there are no orders with problems' });
+    }
+
+    return res.json(deliveriesWithProblems);
+  }
 
   async store(req, res) {
     const orderExists = await Order.findByPk(req.params.delivery_id);

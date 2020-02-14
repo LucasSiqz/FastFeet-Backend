@@ -33,6 +33,7 @@ routes.put(
 );
 
 routes.post('/delivery/:delivery_id/problems', DeliveryProblemController.store);
+routes.get('/deliveries/with-problems', DeliveryProblemController.index);
 
 routes.use(authMiddleware);
 
