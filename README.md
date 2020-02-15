@@ -5,6 +5,8 @@
   Aplicação para uma transportadora fictícia
 </h3>
 
+---
+
 ## Descrição:
 
 Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com express.
@@ -36,7 +38,7 @@ Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com
    > \$ cd FastFeet-Backend
 3. Instale as dependências:
    > \$ yarn
-4. Crie uma copia do arquivo .env.example e renomeie para .env e adicione os valores
+4. Crie uma copia do arquivo .env.example e renomeie para .env e adicione os devidos valores.
 5. Execute o script:
 
    > \$ yarn dev
