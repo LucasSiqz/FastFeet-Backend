@@ -2,10 +2,10 @@
   <img alt="Fastfeet" title="Fastfeet" src="https://raw.githubusercontent.com/Rocketseat/bootcamp-gostack-desafio-02/master/.github/logo.png" width="300px" />
 </h1>
 <h3 align="center">
-  Aplicação para uma transportadora fictícia.
+  Aplicação para uma transportadora fictícia
 </h3>
 
-## Descrição
+## Descrição:
 
 Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com express.
 
@@ -22,7 +22,7 @@ Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com
 - **Multer:** Usado para auxiliar o upload de arquivos.
 - **Nodemailer:** Usado para enviar emails.
 
-## Banco de dados da aplicação
+## Banco de dados da aplicação:
 
 - Postgres
 
@@ -43,6 +43,6 @@ Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com
 
 ---
 
-## Licença
+## Licença:
 
 Esse projeto utiliza a licença MIT. Para mais informações [clique aqui](https://github.com/LucasSiqz/FastFeet-Backend/blob/master/LICENSE)
