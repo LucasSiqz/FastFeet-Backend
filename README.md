@@ -16,7 +16,7 @@ Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com
 ## Ferramentas utilizadas:
 
 - **Sequelize:** ORM usado para conversação com banco de dados.
-- **Bcryptjs:** Usado para criptografia de senhas
+- **Bcryptjs:** Usado para criptografia de senhas.
 - **DotEnv:** Usado para lidar com variáveis de ambiente.
 - **Date-fns:** Usado para manipulação de datas.
 - **Yup:** Usado para validações de schemas.
