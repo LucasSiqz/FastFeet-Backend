@@ -16,7 +16,8 @@ import authMiddleware from './app/middlewares/auth';
 import validadeUserStore from './app/validators/UserStore';
 import validadeSessionStore from './app/validators/SessionStore';
 import validadeRecipientStore from './app/validators/RecipientStore';
-import valdiadeDeliverymanStore from './app/validators/DeliverymanStore';
+import validadeDeliverymanStore from './app/validators/DeliverymanStore';
+import validadeOrderStore from './app/validators/OrderStore';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -42,14 +43,14 @@ routes.post('/recipients', validadeRecipientStore, RecipientController.store);
 
 routes.post(
   '/deliverymans',
-  valdiadeDeliverymanStore,
+  validadeDeliverymanStore,
   DeliverymanController.store
 );
 routes.get('/deliverymans', DeliverymanController.index);
 routes.put('/deliverymans/:id', DeliverymanController.update);
 routes.delete('/deliverymans/:id', DeliverymanController.delete);
 
-routes.post('/orders', OrderController.store);
+routes.post('/orders', validadeOrderStore, OrderController.store);
 routes.get('/orders', OrderController.index);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
