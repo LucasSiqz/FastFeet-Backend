@@ -18,6 +18,7 @@ import validadeSessionStore from './app/validators/SessionStore';
 import validadeRecipientStore from './app/validators/RecipientStore';
 import validadeDeliverymanStore from './app/validators/DeliverymanStore';
 import validadeOrderStore from './app/validators/OrderStore';
+import validadeDeliveryProblemStore from './app/validators/DeliveryProblemStore';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -33,7 +34,11 @@ routes.put(
   DeliveryController.update
 );
 
-routes.post('/delivery/:order_id/problems', DeliveryProblemController.store);
+routes.post(
+  '/delivery/:order_id/problems',
+  validadeDeliveryProblemStore,
+  DeliveryProblemController.store
+);
 routes.get('/delivery/:order_id/problems', DeliveryProblemController.show);
 routes.get('/deliveries/with-problems', DeliveryProblemController.index);
 
