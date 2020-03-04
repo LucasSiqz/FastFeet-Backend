@@ -22,7 +22,7 @@ class OrderController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'recipient_name', 'cep'],
+          attributes: ['id', 'recipient_name', 'cep', 'city', 'state'],
         },
         {
           model: Deliveryman,
