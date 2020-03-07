@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Order from '../models/Orders';
 import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
@@ -7,6 +8,51 @@ import Mail from '../../lib/Mail';
 
 class OrderController {
   async index(req, res) {
+    if (req.query.product) {
+      const orders = await Order.findOne({
+        where: {
+          product: {
+            [Op.like]: req.query.product,
+          },
+        },
+        attributes: [
+          'id',
+          'recipient_id',
+          'deliveryman_id',
+          'signature_id',
+          'product',
+          'canceled_at',
+          'start_date',
+          'end_date',
+        ],
+        include: [
+          {
+            model: Recipient,
+            as: 'recipient',
+            attributes: ['id', 'recipient_name', 'cep', 'city', 'state'],
+          },
+          {
+            model: Deliveryman,
+            as: 'deliveryman',
+            attributes: ['id', 'name', 'avatar_id'],
+            include: [
+              {
+                model: File,
+                as: 'avatar',
+                attributes: ['name', 'path', 'url'],
+              },
+            ],
+          },
+          {
+            model: File,
+            as: 'signature',
+            attributes: ['name', 'path', 'url'],
+          },
+        ],
+      });
+      return res.status(200).json(orders);
+    }
+
     const orders = await Order.findAll({
       attributes: [
         'id',
