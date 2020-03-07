@@ -9,10 +9,11 @@ import Mail from '../../lib/Mail';
 class OrderController {
   async index(req, res) {
     if (req.query.product) {
-      const orders = await Order.findOne({
+      const product = `%${req.query.product}%`;
+      const orders = await Order.findAll({
         where: {
           product: {
-            [Op.like]: req.query.product,
+            [Op.like]: product,
           },
         },
         attributes: [
