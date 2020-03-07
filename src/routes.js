@@ -45,6 +45,7 @@ routes.get('/deliveries/with-problems', DeliveryProblemController.index);
 routes.use(authMiddleware);
 
 routes.post('/recipients', validadeRecipientStore, RecipientController.store);
+routes.get('/recipients', RecipientController.index);
 
 routes.post(
   '/deliverymans',
