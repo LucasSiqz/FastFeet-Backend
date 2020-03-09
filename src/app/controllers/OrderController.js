@@ -175,6 +175,34 @@ class OrderController {
     });
   }
 
+  async show(req, res) {
+    const order = await Order.findByPk(req.params.id, {
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['id', 'recipient_name', 'cep'],
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!order) {
+      return res.status(400).json({ error: 'Order does not exists' });
+    }
+
+    return res.status(200).json(order);
+  }
+
   async delete(req, res) {
     const order = await Order.findByPk(req.params.id);
 
