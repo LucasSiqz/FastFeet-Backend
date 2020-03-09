@@ -46,6 +46,7 @@ routes.use(authMiddleware);
 
 routes.post('/recipients', validadeRecipientStore, RecipientController.store);
 routes.get('/recipients', RecipientController.index);
+routes.get('/recipients/:id', RecipientController.show);
 
 routes.post(
   '/deliverymans',
@@ -53,6 +54,7 @@ routes.post(
   DeliverymanController.store
 );
 routes.get('/deliverymans', DeliverymanController.index);
+routes.get('/deliverymans/:id', DeliverymanController.show);
 routes.put('/deliverymans/:id', DeliverymanController.update);
 routes.delete('/deliverymans/:id', DeliverymanController.delete);
 

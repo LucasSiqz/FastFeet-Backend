@@ -64,6 +64,24 @@ class DeliverymanController {
     });
   }
 
+  async show(req, res) {
+    const deliveryman = await Deliveryman.findByPk(req.params.id, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman id does not exists' });
+    }
+
+    return res.status(200).json(deliveryman);
+  }
+
   async update(req, res) {
     const deliveryman = await Deliveryman.findByPk(req.params.id);
 
