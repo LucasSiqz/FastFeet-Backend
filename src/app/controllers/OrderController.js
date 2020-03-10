@@ -30,7 +30,15 @@ class OrderController {
           {
             model: Recipient,
             as: 'recipient',
-            attributes: ['id', 'recipient_name', 'cep', 'city', 'state'],
+            attributes: [
+              'id',
+              'recipient_name',
+              'cep',
+              'city',
+              'state',
+              'street',
+              'number',
+            ],
           },
           {
             model: Deliveryman,
@@ -69,7 +77,15 @@ class OrderController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['id', 'recipient_name', 'cep', 'city', 'state'],
+          attributes: [
+            'id',
+            'recipient_name',
+            'cep',
+            'city',
+            'state',
+            'street',
+            'number',
+          ],
         },
         {
           model: Deliveryman,
@@ -210,7 +226,7 @@ class OrderController {
       return res.status(400).json({ error: 'Order does not exists' });
     }
 
-    await Order.destroy();
+    await order.destroy();
 
     return res.status(200).json({
       success: `Order with id ${req.params.id} was deleted`,
