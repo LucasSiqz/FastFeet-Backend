@@ -12,6 +12,7 @@ import {
 import File from '../models/File';
 import Deliveryman from '../models/Deliveryman';
 import Order from '../models/Orders';
+import Recipient from '../models/Recipient';
 
 class DeliveryController {
   async index(req, res) {
@@ -28,6 +29,21 @@ class DeliveryController {
           canceled_at: null,
           deliveryman_id: req.params.id,
         },
+        include: [
+          {
+            model: Recipient,
+            as: 'recipient',
+            attributes: [
+              'recipient_name',
+              'street',
+              'number',
+              'complement',
+              'state',
+              'city',
+              'cep',
+            ],
+          },
+        ],
       });
 
       return res.status(200).json(deliveries);
@@ -45,6 +61,19 @@ class DeliveryController {
           model: File,
           as: 'signature',
           attributes: ['url', 'path', 'name'],
+        },
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'recipient_name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'cep',
+          ],
         },
       ],
     });
