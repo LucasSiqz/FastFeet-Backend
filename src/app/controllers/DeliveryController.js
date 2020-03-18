@@ -142,10 +142,6 @@ class DeliveryController {
 
     const endDate = parseISO(req.body.end_date);
 
-    if (isBefore(startDate, new Date())) {
-      return res.status(400).json({ error: 'Invalid start date' });
-    }
-
     if (isBefore(endDate, startDate)) {
       return res
         .status(400)
