@@ -26,6 +26,20 @@ class RecipientController {
     });
   }
 
+  async update(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient id does not exists' });
+    }
+
+    await recipient.update(req.body);
+
+    return res.status(200).json({
+      recipient,
+    });
+  }
+
   async show(req, res) {
     const recipient = await Recipient.findByPk(req.params.id);
 
