@@ -32,15 +32,20 @@ Esse repositório é referente ao backend do FastFeet desenvolvido em nodejs com
 
 ## Como executar o projeto:
 
-1. clone esse repositório:
-   > \$ git clone https://github.com/LucasSiqz/FastFeet-Backend.git
-2. Acesse a pasta:
-   > \$ cd FastFeet-Backend
-3. Instale as dependências:
+1. Instale as dependências:
    > \$ yarn
-4. Crie uma copia do arquivo .env.example, renomeie para .env e adicione os devidos valores.
-5. Execute o script:
+2. Crie uma copia do arquivo .env.example, renomeie para .env e adicione os devidos valores.
+3. Execute o script para executar as migrations:
+   > \$ yarn sequelize db:migrate
 
+- Para inicializar um perfil de admin execute:
+  > \$ yarn sequelize db:seed:all
+
+4. Execute a fila para envio de emails:
+
+   > \$ yarn queue
+
+5. Execute a aplicação:
    > \$ yarn dev
 
 ---

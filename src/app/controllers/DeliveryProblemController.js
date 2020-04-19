@@ -1,7 +1,9 @@
 import DeliveryProblem from '../models/DeliveryProblems';
 import Order from '../models/Orders';
 import Deliveryman from '../models/Deliveryman';
-import Mail from '../../lib/Mail';
+
+import CancellationMail from '../jobs/CancellationMail';
+import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
   async index(req, res) {
@@ -98,16 +100,7 @@ class DeliveryProblemController {
       canceled_at: new Date(),
     });
 
-    await Mail.sendMail({
-      to: `${order.deliveryman.name} <${order.deliveryman.email}>`,
-      subject: 'Encomenda Cancelada!',
-      template: 'cancelOrder',
-      context: {
-        deliveryman: order.deliveryman.name,
-        product: order.product,
-        description: deliveryProblemExists.description,
-      },
-    });
+    await Queue.add(CancellationMail.key, { order, deliveryProblemExists });
 
     return res.status(200).json({ message: 'Delivery was canceled!' });
   }
